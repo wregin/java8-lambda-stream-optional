@@ -7,12 +7,16 @@ import java.util.Comparator;
 import java.util.Deque;
 import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StreamsCollect {
 	public static void main(String[] args) {
 		
 		List<Integer> lista = Arrays.asList(1,2,3,4,5,6);
+		
+		//       fornecedor - acumulação - combinação
+		//.collect(supplier, accumulator, combiner)
 		
 		// exemplo de coletor
 		List<Integer> collect = lista.stream()
@@ -36,13 +40,13 @@ public class StreamsCollect {
 			.filter((n) -> n % 2 == 0 )
 			.collect(Collectors.toCollection(
 					() -> new ArrayDeque<Integer>()
-				));
+			));
 		System.out.println("Deque: " + collect3);
 		
 		
 		// joining
 		String join = lista.stream()
-			.map(n -> n.toString())
+			.map(n -> n.toString()) // transformando em string
 			.collect(Collectors.joining("f"));
 		System.out.println("Join: " + join);
 		
@@ -56,9 +60,10 @@ public class StreamsCollect {
 			.collect(Collectors.summingInt(n -> n.intValue()));
 		System.out.println("soma: " + soma);
 		
-		// summing - somando
+		// sumarizando
 		IntSummaryStatistics stats = lista.stream()
 			.collect(Collectors.summarizingInt(n -> n.intValue()));
+		System.out.println("** IntSummaryStatistics **");
 		System.out.println("stats média: " + stats.getAverage());
 		System.out.println("stats contador: " + stats.getCount());
 		System.out.println("stats max: " + stats.getMax());
@@ -74,10 +79,32 @@ public class StreamsCollect {
 		// max/min
 		lista.stream()
 			.filter((n) -> n % 2 == 0)
-					           // ou minBy
+					      // ou minBy
 			.collect(Collectors.maxBy(Comparator.naturalOrder()))
 			.ifPresent(System.out::println);
 		
+		// grouping by
+		Map<Integer, List<Integer>> groupingBy =  lista.stream()
+			.collect(Collectors.groupingBy((n) -> n % 3));
+		System.out.println("groupingBy: " + groupingBy);
+		
+		// partitioning by
+		Map<Boolean, List<Integer>> partitioning =  lista.stream()
+			.collect(Collectors.partitioningBy((n) -> n % 3 == 0));
+		System.out.println("partitioning: " + partitioning);
+		
+		// toMap
+		Map<Integer, Integer> toMap =  lista.stream()
+			.collect(Collectors.toMap(n -> n, n -> n * 2));
+		System.out.println("toMap: " + toMap);
+		
+		// toMap
+		Map<Integer, Double> toMap2 =  lista.stream()
+			.collect(Collectors.toMap(
+				n -> n, 
+				n -> Math.pow(n.doubleValue(), 
+				5))); 
+		System.out.println("toMap2: " + toMap2);
 		
 	}
 }
