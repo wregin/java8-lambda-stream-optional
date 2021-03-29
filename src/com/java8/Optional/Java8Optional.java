@@ -14,7 +14,9 @@ public class Java8Optional {
 		converteEmNumeros(um).ifPresent(e -> System.out.println(e));
 		
 		// se não der retorno na execução, retorna o 2
+		// alterar a val "um" para vaazio por exemplo
 		Integer numero2 = converteEmNumeros(um).orElse(2);
+		System.out.println("num2: " + numero2);
 		
 		Integer numero3 = converteEmNumeros(um)
 			//.orElseGet(() -> 2); // se não der certo, retorna o 2s

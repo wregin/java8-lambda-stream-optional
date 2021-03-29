@@ -9,7 +9,7 @@ public class LambdaOutraFormas {
 		// 3 casos onde o parêntese é ncessário
 		
 		// 1 quando não há argumento: = ()
-		Runnable runa = () -> System.out.println("olá");
+		Runnable runa = () -> System.out.println("olá"); runa.toString();
 		
 		// 2 e 3
 		IntStream.range(0, 5)

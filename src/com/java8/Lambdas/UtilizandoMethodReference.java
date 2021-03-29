@@ -19,6 +19,7 @@ public class UtilizandoMethodReference {
 		    // sem utilizar
 			.forEach((n) -> System.out.println(n) );
 		
+		
 		System.out.println("-- multiplica sem método de referencia--");
 		lista.stream()
 			.map( (n) -> multipliquePorDois(n) )
